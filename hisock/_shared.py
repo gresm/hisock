@@ -40,6 +40,8 @@ class _HiSockBase:
     See their documentation for more info.
     """
 
+    _reserved_funcs: dict[str, dict[str]]
+
     def __init__(
         self, addr: tuple[str, int], header_len: int = 16, cache_size: int = -1
     ):
@@ -372,7 +374,7 @@ class _HiSockBase:
         :rtype: bool
         """
 
-        for listener in self._recv_on_events:
+        for listener, event in self._recv_on_events.items():
             # Catch-all listeners
             # `listener` transverses in-order, so the first will be the minimum
             should_continue = True
@@ -384,8 +386,8 @@ class _HiSockBase:
             if should_continue:
                 continue
 
-            self._recv_on_events[listener]["data"] = content
-            self._recv_on_events[listener]["thread_event"].set()
+            event["data"] = content
+            event["thread_event"].set()
             return True
 
         return False
