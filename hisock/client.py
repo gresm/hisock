@@ -40,6 +40,7 @@ try:
         iptup_to_str,
         validate_ipv4,
     )
+    from .protocols import TCP_IP4_Protocol
     from ._shared import _HiSockBase
 except ImportError:
     # Relative import doesn't work for non-pip builds
@@ -58,6 +59,7 @@ except ImportError:
         iptup_to_str,
         validate_ipv4,
     )
+    from protocols import TCP_IP4_Protocol
     from _shared import _HiSockBase
 
 
@@ -115,7 +117,10 @@ class HiSockClient(_HiSockBase):
         **This is mainly used for under-the-hood-code.**
     :ivar int connect_time: An integer sotring the Unix timestamp of when the
         client connected to the server.
+    :cvar type[hisock.protocols.BaseProtocol]: Protocol to be used by client
     """
+
+    protocol = TCP_IP4_Protocol
 
     def __init__(
         self,
@@ -134,7 +139,7 @@ class HiSockClient(_HiSockBase):
         self.original_group = group
 
         # Socket initialization
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock = self.protocol()
         try:
             self.sock.connect(self.addr)
         except ConnectionRefusedError:

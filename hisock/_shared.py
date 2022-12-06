@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import inspect
 import threading
-from typing import Callable, Union, Any
+from typing import Callable, Union, Any, Type
 
 try:
     from .utils import (
@@ -22,6 +22,7 @@ try:
         _type_cast,
         _str_type_to_type_annotations_dict,
     )
+    from .protocols import BaseProtocol
 except ImportError:
     from utils import (
         FunctionNotFoundException,
@@ -32,6 +33,7 @@ except ImportError:
         _type_cast,
         _str_type_to_type_annotations_dict,
     )
+    from protocols import BaseProtocol
 
 
 class _HiSockBase:
@@ -41,6 +43,7 @@ class _HiSockBase:
     """
 
     _reserved_funcs: dict[str, dict[str]]
+    protocol: Type[BaseProtocol] = BaseProtocol
 
     def __init__(
         self, addr: tuple[str, int], header_len: int = 16, cache_size: int = -1
