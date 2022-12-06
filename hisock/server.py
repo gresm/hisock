@@ -132,7 +132,7 @@ class HiSockServer(_HiSockBase):
         super().__init__(addr=addr, header_len=header_len, cache_size=cache_size)
 
         # Socket initialization
-        self.socket = self.protocol()  # socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket = self.protocol()
         self.socket.setblocking(True)
         try:
             self.socket.bind(addr)
