@@ -35,5 +35,3 @@ from .utils import (  # lgtm [py/unused-import]
     ipstr_to_tup,
     iptup_to_str,  # lgtm [py/unused-import]
 )
-
-import examples  # lgtm [py/unused-import]
