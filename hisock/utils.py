@@ -20,7 +20,15 @@ import builtins
 import sys
 import ast
 from re import search
-from typing import Union, Any, Optional, Type, Tuple, Dict, List  # Must use these for bare annots
+from typing import (
+    Union,
+    Any,
+    Optional,
+    Type,
+    Tuple,
+    Dict,
+    List,
+)  # Must use these for bare annots
 from ipaddress import IPv4Address
 
 # Custom exceptions

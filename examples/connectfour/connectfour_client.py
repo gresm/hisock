@@ -204,14 +204,24 @@ class GameState(BaseState):
 
         self.board = shared.Board()
         self.replay_button = Button(
-            pygame.Rect(WIDTH // 2, 300, 250, 40), (0, 190, 0), "Play again?",
-            (0, 0, 0), 36, hover_color=(0, 215, 0), center=True,
-            func_when_clicked=self.replay
+            pygame.Rect(WIDTH // 2, 300, 250, 40),
+            (0, 190, 0),
+            "Play again?",
+            (0, 0, 0),
+            36,
+            hover_color=(0, 215, 0),
+            center=True,
+            func_when_clicked=self.replay,
         )
         self.exit_button = Button(
-            pygame.Rect(WIDTH // 2, 380, 250, 40), (190, 0, 0), "Exit",
-            (0, 0, 0), 36, hover_color=(215, 0, 0), center=True,
-            func_when_clicked=lambda: self.client.send("player_exit")
+            pygame.Rect(WIDTH // 2, 380, 250, 40),
+            (190, 0, 0),
+            "Exit",
+            (0, 0, 0),
+            36,
+            hover_color=(215, 0, 0),
+            center=True,
+            func_when_clicked=lambda: self.client.send("player_exit"),
         )
 
         self.down_arrow = pygame.image.load("downarrow.png").convert_alpha()
@@ -281,7 +291,6 @@ class GameState(BaseState):
             self.replay_button.color = (0, 190, 0)
             self.replay_button.hover_color = (0, 215, 0)
             self.replay_button.func_when_clicked = self.replay
-
 
         self.client.start()
 
@@ -403,24 +412,26 @@ class GameState(BaseState):
             if self.game_status != "in_progress":
                 window_rect = pygame.Rect(0, 0, 275, 275)
                 window_rect.center = (WIDTH // 2, HEIGHT // 2)
-                pygame.draw.rect(
-                    screen, (0, 150, 0),
-                    window_rect
-                )
+                pygame.draw.rect(screen, (0, 150, 0), window_rect)
                 self.blit_text(
-                    f"YOU {self.game_status.upper()}!", (WIDTH // 2, 190), 52,
-                    (0, 0, 0), center=True
+                    f"YOU {self.game_status.upper()}!",
+                    (WIDTH // 2, 190),
+                    52,
+                    (0, 0, 0),
+                    center=True,
                 )
 
                 if self.opp_replay:
                     self.blit_text(
-                        "Opponent wants to play again", (WIDTH // 2, 260),
-                        20, (0, 0, 0), center=True
+                        "Opponent wants to play again",
+                        (WIDTH // 2, 260),
+                        20,
+                        (0, 0, 0),
+                        center=True,
                     )
 
                 self.replay_button.draw()
                 self.exit_button.draw()
-
 
             if self.game_status == "win":
                 pass

@@ -79,10 +79,12 @@ def on_join(clt_data):
     data.add_client(clt_data)
     clt_pair = data.find_client(clt_data)
 
-    print(f"Player {clt_data.name} joined, total players {len(server.clients)}\n"
-          f"    - Paired? {len(clt_pair) == 4}\n"
-          f"    - Client obj: {clt_data}\n"
-          f"    - Board obj: {clt_pair[-2]}")
+    print(
+        f"Player {clt_data.name} joined, total players {len(server.clients)}\n"
+        f"    - Paired? {len(clt_pair) == 4}\n"
+        f"    - Client obj: {clt_data}\n"
+        f"    - Board obj: {clt_pair[-2]}"
+    )
 
 
 @server.on("leave")
@@ -136,6 +138,7 @@ def on_turn_made(clt_data, move_info: dict):
     if client_pair[2].total_moves % 2 == 0:
         for client in (clt_data, other_client):
             server.send_client(client, "new_turn", client_pair[2].total_moves // 2 + 1)
+
 
 print("Successfully started server!")
 
