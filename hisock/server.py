@@ -39,6 +39,7 @@ try:
         ipstr_to_tup,
     )
     from ._shared import _HiSockBase
+    from .protocols import TCP_IP4_Protocol
 except ImportError:
     # Relative import doesn't work for non-pip builds
     from utils import (
@@ -58,6 +59,7 @@ except ImportError:
         ipstr_to_tup,
     )
     from _shared import _HiSockBase
+    from protocols import TCP_IP4_Protocol
 
 
 # ░█████╗░░█████╗░██╗░░░██╗████████╗██╗░█████╗░███╗░░██╗██╗
@@ -117,6 +119,8 @@ class HiSockServer(_HiSockBase):
     :raises TypeError: If the address is not a tuple.
     """
 
+    protocol = TCP_IP4_Protocol
+
     def __init__(
         self,
         addr: tuple[str, int],
@@ -128,7 +132,7 @@ class HiSockServer(_HiSockBase):
         super().__init__(addr=addr, header_len=header_len, cache_size=cache_size)
 
         # Socket initialization
-        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket = self.protocol()  # socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.setblocking(True)
         try:
             self.socket.bind(addr)
